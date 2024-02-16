@@ -1,0 +1,139 @@
+<?php
+interface DeckInterface {
+	public function shuffle();
+	
+	public function dealCard(): Card;
+}
+
+class Card {
+	private string $rank;
+	private string $suit;
+	public function __construct(string $rank, string $suit) {
+		 $this->rank = $rank;
+		 $this->suit = $suit;
+	} 
+	
+	public function getRank(): string {
+		return $this->rank;
+	}
+	
+	public function getSuit():string {
+		return $this->suit;
+	}
+}
+
+class Deck implements DeckInterface {
+	private array $card;
+	private array $suits;
+	private array $elements;
+	
+	public function __construct() {
+		$this->suits = ['♥', '♦', '♣', '♠' ];
+		$this->elements = ['6', '7', '8', '9', '10', 'В', 'Д', 'К',  'Т'];
+		
+		foreach($this->elements as $rank) {
+		foreach($this->suits as $suit) {
+		//	$this->card[] = $rank . $suit;
+			$this->card[] = new Card($rank, $suit);
+		}
+	}
+	
+	$this->shuffle();
+ }		
+		public function shuffle() {
+			shuffle($this->card);
+		}
+		
+		public function dealCard(): Card {
+			return array_shift($this->card);
+		}
+		
+		public function getCards() {
+			return $this->card;
+		}
+   }
+   
+   
+interface PlayerInterface {
+	public function addCard($card): void;
+	
+	public function countCardInHand(): int;
+	
+	public function getHand();
+}
+
+class Player implements PlayerInterface {
+	
+	private array $hand;
+	
+	public function __construct() {
+		$this->hand =  [];
+	}
+	public function addCard($card): void {
+		$this->hand[] = $card;
+	} 
+	public function countCardInHand(): int {
+		return count($this->hand);
+	}
+	public function getHand() {
+    return $this->hand;
+}
+}
+
+class Game {
+	private Deck $deck;
+	
+	private Player $firstPlayer;
+	
+	private Player $secondPlayer;
+	public function __construct() {
+		$this->deck = new Deck();
+		
+		$this->firstPlayer = new Player();
+		
+		$this->secondPlayer = new Player();
+		
+		
+	}
+	public function getFirstPlayerHand() {
+        return $this->firstPlayer->getHand();
+    }
+    
+    public function getSecondPlayerHand() {
+        return $this->secondPlayer->getHand();
+    }
+	public function play() {
+		 
+	while (!empty($this->deck->getCards())) { 
+    $this->firstPlayer->addCard($this->deck->dealCard()); 
+    if (!empty($this->deck->getCards())) { 
+    $this->secondPlayer->addCard($this->deck->dealCard()); 
+    }
+}
+		
+	}
+	
+}
+
+
+
+$game = new Game();
+// Вывести карты первого игрока
+$game->play(); // Сыграть в игру
+echo "Карты первого игрока:\n";
+var_dump($game->getFirstPlayerHand());
+
+// Вывести карты второго игрока
+echo "Карты второго игрока:\n";
+var_dump($game->getSecondPlayerHand());
+
+//var_dump($game->play());
+
+
+
+//$player = new Player();
+//var_dump($player->addCard('1'));
+//var_dump($player->countCardInHand());
+//$deck = new Deck();
+//var_dump($deck);
+//var_dump($deck->dealCard());
