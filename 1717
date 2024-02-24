@@ -1,0 +1,167 @@
+<?php
+interface DeckInterface {
+	public function shuffle();
+	
+	public function dealCard(): Card;
+}
+
+class Card {
+	private string $rank;
+	private string $suit;
+	public function __construct(string $rank, string $suit) {
+		 $this->rank = $rank;
+		 $this->suit = $suit;
+	} 
+	
+	public function getRank(): string {
+		return $this->rank;
+	}
+	
+	public function getSuit():string {
+		return $this->suit;
+	}
+}
+
+class Deck implements DeckInterface {
+	private array $card;
+	private array $suits;
+	private array $elements;
+	
+	public function __construct() {
+		$this->suits = ['♥', '♦', '♣', '♠' ];
+		$this->elements = ['6', '7', '8', '9', '10', 'В', 'Д', 'К',  'Т'];
+		
+		foreach($this->elements as $rank) {
+		foreach($this->suits as $suit) {
+		//	$this->card[] = $rank . $suit;
+			$this->card[] = new Card($rank, $suit);
+		}
+	}
+	
+	$this->shuffle();
+ }		
+		public function shuffle() {
+			shuffle($this->card);
+		}
+		
+		public function dealCard(): Card {
+			return array_shift($this->card);
+		}
+		
+		public function getCards() {
+			return $this->card;
+		}
+   }
+   
+   
+interface PlayerInterface {
+	public function addCard($card): void;
+	
+	public function countCardInHand(): int;
+	
+	public function getHand();
+	
+	public function removeCard(): void;
+}
+
+class Player implements PlayerInterface {
+	
+	private array $hand;
+	
+	public function __construct() {
+		$this->hand =  [];
+	}
+	public function addCard($card): void {
+		$this->hand[] = $card;
+	} 
+	
+	public function removeCard(): void {
+		array_shift($this->hand);
+	}
+	public function countCardInHand(): int {
+		return count($this->hand);
+	}
+	public function getHand() {
+    return $this->hand;
+}
+}
+
+class Game {
+	private Deck $deck;
+	
+	private Player $firstPlayer;
+	
+	private array $raitingCards = ['6', '7', '8', '9', '10', 'В', 'Д', 'К',  'Т'];
+	
+	private Player $secondPlayer;
+	public function __construct() {
+		$this->deck = new Deck();
+		
+		$this->firstPlayer = new Player();
+		
+		$this->secondPlayer = new Player();
+		
+			}
+	public function getFirstPlayerHand() {
+       return $this->firstPlayer->getHand();
+    }
+    
+   public function getSecondPlayerHand() {
+       return $this->secondPlayer->getHand();
+   }
+	public function play() {
+		while($this->deck->getCards()) {
+	$cardForFirstPlayer = $this->deck->dealCard();
+	$cardForSecondPlayer = $this->deck->dealCard();
+	
+	$this->firstPlayer->addCard($cardForFirstPlayer);
+	$this->secondPlayer->addCard($cardForSecondPlayer);
+	
+	echo "Card for first player {$cardForfirstPlayer->getRank()} {$cardForFristPlayer->getSuit()}" . "\n";
+	echo "Card for second player{$cardForfirstPlayer->getRank()} {$cardForFristPlayer->getSuit()}" . "\n" . "\n";
+	
+	if($this->compareCards($cardForfirstPlayer, $cardForfirstPlayer)) {
+		echo "First Player win" . "\n";
+		$this->secondPlayer->addCard($cardForFirstPlayer);
+		$this->firstPlayer->removeCard();
+		
+	}else {
+		echo "Second Player win" . "\n";
+		$this->firstPlayer->addCard($cardforSecondPlayer);
+		$this->secondPlayer->removeCard();
+	}
+	}
+	echo "GAME OVER". "\n";
+	echo "first Player has been ($this->firstPlayer->countCardInHand()) cards";
+	echo "second Player has been ($this->secondPlayer->countCardInHand()) cards";
+}
+
+private function compareCards(Card $cardForFirstPlayer, Card $cardForSecondPlayer) {
+	
+	$raitingCardForFirstPlayer = array_search($cardForFirstPlayer->getRank(), $this->raitingCards);
+	$raitingCardForSecondPlayer = array_search($cardForSecondPlayer->getRank(), $this->raitingCards);
+	
+	
+	if($raitingCardForFirstPlayer > $raitingCardForSecondPlayer) {
+		return true
+	}
+}
+}
+	
+
+
+
+$game = new Game();
+$game->play(); 
+echo "Карты первого игрока:\n";
+var_dump($game->getFirstPlayerHand());
+
+echo "Карты второго игрока:\n";
+var_dump($game->getSecondPlayerHand());
+//var_dump($game->play());
+//$player = new Player();
+//var_dump($player->addCard('1'));
+//var_dump($player->countCardInHand());
+//$deck = new Deck();
+//var_dump($deck);
+//var_dump($deck->dealCard());
