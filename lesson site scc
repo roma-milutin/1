@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+body {
+    font-family: "Madimi";
+    background-color: #1c1c1c;
+    color: #fff;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: 500;
+}
+
+p {
+    margin: 0;
+}
+
+.header {
+    padding: 25px 0;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+}
+
+.header-list {
+    display: flex;
+    gap: 30px;
+}
+
+.header-nav a.active {
+    opacity: 1;
+}
+
+.header-nav a {
+font-size: 14px;
+opacity: 0.7;
+transition: opacity 0.3s;
+}
+
+.header-nav a:hover {
+    opacity: 0.9;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 500;
+    font-size: 16px;
+
+    width: 165px;
+    height: 50px;
+
+    background-color: #F6762c;
+    border-radius: 5px;
+
+    transition: opacity 0.3s;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.welcome {
+    box-sizing: border-box;
+    min-height: 100vh;
+    margin-top: -100px;
+    padding: 240px 0;
+    background-image: url("images/welcome-burger.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.welcome-text {
+    width: 550px;
+}
+
+.welcome-subtitle {
+    margin-bottom: 7px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+}
+
+.welcome-title {
+    font-size: 58px;
+    letter-spacing: 0.1em;
+}
+
+.welcome-desc {
+    margin: 40px 0;
+    font-size: 18px;
+    opacity: 0.7;
+}
